@@ -80,3 +80,21 @@ export function throttle(func, delay = 300) {
         }
     };
 }
+
+/**
+ * @description retry function call until success
+ * @param {function} func
+ * @param {number} [times=3]
+ * @return {Promise}
+ */
+export function asyncRetry(func, times = 3) {
+    return async function(...args){
+        for (let i = 0; i < times; i++) {
+            try {
+                return await func.apply(this, args);
+            } catch (error) {
+                console.log(`retry ${i} times`);
+            }
+        }
+    }
+}
