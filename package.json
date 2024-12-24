@@ -7,7 +7,14 @@
         "jsdoc:build": "jsdoc -c jsdoc.config.json",
         "docs:build": "yarn jsdoc:build",
         "prepare": "husky",
-        "commitlint": "commitlint --edit"
+        "commitlint": "commitlint --edit",
+        "release": "standard-version",
+        "release:patch": "standard-version --release-as patch",
+        "release:minor": "standard-version --release-as minor",
+        "release:major": "standard-version --release-as major",
+        "publish:patch": "npm run release:patch && git push --follow-tags origin main && npm publish",
+        "publish:minor": "npm run release:minor && git push --follow-tags origin main && npm publish",
+        "publish:major": "npm run release:major && git push --follow-tags origin main && npm publish"
     },
     "keywords": [
         "kit",
@@ -33,7 +40,8 @@
         "better-docs": "^2.7.3",
         "husky": "^9.1.4",
         "jest": "^29.7.0",
-        "jsdoc": "^4.0.3"
+        "jsdoc": "^4.0.3",
+        "standard-version": "^9.5.0"
     },
     "dependencies": {
         "axios": "^1.7.2",
