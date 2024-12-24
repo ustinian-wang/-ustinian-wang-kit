@@ -63,6 +63,109 @@ npm config set proxy http://127.0.0.1:8001
 
 ## Q: 如何加上changelog
 
+
+### 1. 安装 standard-version
+
+```bash
+# 安装为开发依赖
+npm install --save-dev standard-version
+```
+
+### 2. 配置 package.json
+
+```json
+{
+  "scripts": {
+    "release": "standard-version",
+    "release:patch": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major"
+  }
+}
+```
+
+### 3. 创建配置文件 .versionrc.json
+
+```json
+{
+  "types": [
+    {"type": "feat", "section": "✨ Features | 新功能"},
+    {"type": "fix", "section": "🐛 Bug Fixes | Bug 修复"},
+    {"type": "docs", "section": "📝 Documentation | 文档"},
+    {"type": "style", "section": "💄 Styles | 风格"},
+    {"type": "refactor", "section": "♻️ Code Refactoring | 代码重构"},
+    {"type": "perf", "section": "⚡ Performance Improvements | 性能优化"},
+    {"type": "test", "section": "✅ Tests | 测试"},
+    {"type": "build", "section": "👷‍ Build System | 构建"},
+    {"type": "ci", "section": "🔧 Continuous Integration | CI 配置"},
+    {"type": "chore", "section": "📦 Chores | 其他更新"},
+    {"type": "revert", "section": "⏪ Revert | 回退"}
+  ]
+}
+```
+
+### 4. 使用规范的 commit 消息
+
+提交代码时使用规范的 commit message 格式：
+```shell
+# 新功能
+git commit -m "feat: 添加新的功能"
+
+# 修复 bug
+git commit -m "fix: 修复了某个问题"
+
+# 文档更新
+git commit -m "docs: 更新了文档"
+
+# 代码重构
+git commit -m "refactor: 重构了某个功能"
+```
+
+### 5. 发布新版本
+
+```bash
+# 自动判断版本类型
+npm run release
+
+# 或指定版本类型
+npm run release:patch
+npm run release:minor
+npm run release:major
+```
+
+### 6. 完整的发布流程示例
+
+```bash
+# 1. 提交你的改动
+git add .
+git commit -m "feat: 添加新功能"
+
+# 2. 生成新版本和 CHANGELOG
+npm run release
+
+# 3. 推送到远程仓库
+git push --follow-tags origin main
+
+# 4. 发布到 npm
+npm publish
+```
+
+### 7. 创建一个更完整的发布脚本
+
+```json
+{
+  "scripts": {
+    "release": "standard-version",
+    "release:patch": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major",
+    "publish:patch": "npm run release:patch && git push --follow-tags origin main && npm publish",
+    "publish:minor": "npm run release:minor && git push --follow-tags origin main && npm publish",
+    "publish:major": "npm run release:major && git push --follow-tags origin main && npm publish"
+  }
+}
+```
+
 ## Q: 给项目发版本打tag
 
 ## Q: 如何利用github actions自动部署github pages
