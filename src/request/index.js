@@ -1,3 +1,11 @@
+/*
+ * @Author: ustinian-wang wangjser@gmail.com
+ * @Date: 2024-07-31 08:58:41
+ * @LastEditors: ustinian-wang wangjser@gmail.com
+ * @LastEditTime: 2024-12-25 00:18:03
+ * @FilePath: \kit\src\request\index.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 /**
  * @typedef {Object} Response
  * @property {number} rt
@@ -14,6 +22,7 @@ import {
 } from "./interceptors.js";
 import { jsonStringify } from "../utils/str.js";
 import { isObject, isString } from "../utils/typer.js";
+import axiosRetry from 'axios-retry';
 
 /**
  *
@@ -29,6 +38,15 @@ export const cloneRequest = () => {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
         },
+    });
+
+    axiosRetry(instance, {
+        retries: 3,
+        retryDelay: axiosRetry.exponentialDelay,
+        retryCondition: (error) => {
+            return axiosRetry.isNetworkOrIdempotentRequestError(error) || 
+                   (error.response && error.response.status >= 500);
+        }
     });
 
     setContentTypeOfPostRequest(instance);
