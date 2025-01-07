@@ -313,3 +313,20 @@ export function sortObjectArray(data, field, order='desc') {
 export function isStringArray(value) {
     return isTypeArray(value, isString);
 }
+
+/**
+ * @description get difference between two arrays
+ * @param {Array<any>} one
+ * @param {Array<any>} two
+ * @returns {Array<any>}
+ */
+export function diffArrays(one, two) {
+    let over = [];
+    for (let part of one) {
+      if (!two.includes(part)) {
+        over.push(part);
+      }
+    }
+    return over;
+}
+  
