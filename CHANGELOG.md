@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://github.com/ustinian-wang/kit/compare/v0.1.10...v0.1.11) (2025-01-07)
+
+
+### ✨ Features | 新功能
+
+* add arr kits ([2468123](https://github.com/ustinian-wang/kit/commit/246812312a45753cef42482641592218a65d89fe))
+* add compare into kit ([02ffbd4](https://github.com/ustinian-wang/kit/commit/02ffbd498c9accbffa501aabf4f08c54adc05c30))
+* add moment into kit ([2626320](https://github.com/ustinian-wang/kit/commit/26263206c7fd73a74c080938acf08f5e07e90d93))
+* add moment into kit ([96c9c14](https://github.com/ustinian-wang/kit/commit/96c9c14abe090e1863eec1b5655fcad50f8cd7cd))
+* add sessionStorage cache ([55b5449](https://github.com/ustinian-wang/kit/commit/55b544915879a660695a8f19a40df7f1f7429426))
+* update color kits ([0797c14](https://github.com/ustinian-wang/kit/commit/0797c14c8b17648e0e049c009f99a1a95bbd3f2e))
+
+
+### 📦 Chores | 其他更新
+
+* update pkg ([f8f6fa8](https://github.com/ustinian-wang/kit/commit/f8f6fa8a103142a3e461461e68843b66a57fd0bc))
+
 ### [0.1.10](https://github.com/ustinian-wang/kit/compare/v0.1.9...v0.1.10) (2024-12-24)
 
 
