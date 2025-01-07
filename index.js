@@ -1,5 +1,7 @@
 export { isUrl, setUrlParams } from "./src/utils/url";
 
+
+// utils start
 export * from "./src/utils/browser/dom.js";
 export * from "./src/utils/browser/file.js";
 export * from "./src/utils/arr.js";
@@ -24,3 +26,9 @@ export {colorToHex} from "./src/utils/color.js";
 export {subGbStr} from "./src/utils/str.js";
 export {getGbLen} from "./src/utils/str.js";
 export {checkBit} from "./src/utils/bit.js";
+// utils end
+
+
+// libs start
+export * from "./src/libs/moment.js";
+// libs end
