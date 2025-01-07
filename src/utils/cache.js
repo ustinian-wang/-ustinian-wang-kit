@@ -104,17 +104,17 @@ export function CacheFactory(cache, lifeCycle) {
  * @param {number|Function} [lifeCycle=0] cache time
  * @returns {CacheObject | DiskCache} 。
  */
-function createDiskCacher(DISK_CACHE_KEY, lifeCycle) {
+function createDiskCacher(DISK_CACHE_KEY, lifeCycle, storageName = 'localStorage') {
     let nowWindow = getWindow();
-    let localStorageObject = getter(nowWindow || {}, "localStorage");
-    let localStorage = localStorageObject ? localStorageObject
+    let storageObject = getter(nowWindow || {}, storageName);
+    let storage = storageObject ? storageObject
         : {
               getItem() {},
               setItem() {},
               removeItem() {},
           };
-    let isMethodExist = localStorage.getItem instanceof Function;
-    let result = isMethodExist ? localStorage.getItem(DISK_CACHE_KEY) : '{}';
+    let isMethodExist = storage.getItem instanceof Function;
+    let result = isMethodExist ? storage.getItem(DISK_CACHE_KEY) : '{}';
     let cache = safeJsonParse(result, {}) || {}; //初始化的时候从本地缓存读取数据
     let Cacher = CacheFactory(cache, lifeCycle);
     return {
@@ -130,7 +130,7 @@ function createDiskCacher(DISK_CACHE_KEY, lifeCycle) {
             Cacher.setCache(key, value); //缓存进行去
             let cacheData = Cacher.getData();
             try {
-                localStorage.setItem(DISK_CACHE_KEY, jsonStringify(cacheData)); //写入本地
+                storage.setItem(DISK_CACHE_KEY, jsonStringify(cacheData)); //写入本地
             } catch (e) {
                 console.error(
                     `setCache exception; key=${key}, value=${value}; error=`,
@@ -160,18 +160,11 @@ function createDiskCacher(DISK_CACHE_KEY, lifeCycle) {
                     maxValue = value;
                 }
             });
-            //不使用ESM的方式，是为了解耦代码
-            MallApp.logFdpTrack('mall_gdn_cache', {
-                mall_free_text_0: key,
-                mall_free_text_1: value,
-                mall_free_text_2: maxKey,
-                mall_free_text_3: maxValue,
-            });
         },
 
         clearCache() {
             Cacher.clearCache();
-            localStorage.removeItem(DISK_CACHE_KEY);
+            storage.removeItem(DISK_CACHE_KEY);
         },
     };
 }
@@ -194,7 +187,17 @@ export const MemoryCache = (function () {
 export const DiskCache = (function () {
     const DISK_CACHE_KEY = '_diskCache';
     let lifeCycle = 60 * 1000 * 60 * 24 * 365; //默认缓存一年
-    return createDiskCacher(DISK_CACHE_KEY, lifeCycle);
+    return createDiskCacher(DISK_CACHE_KEY, lifeCycle, 'localStorage');
+})();
+
+/**
+ * @description 磁盘缓存，底层是sessionStorage
+ * @type {CacheObject | DiskCache}
+ */
+export const SessionStorageCache = (function () {
+    const DISK_CACHE_KEY = '_ssDiskCache';
+    let lifeCycle = 60 * 1000 * 60 * 24 * 365; //默认缓存一年
+    return createDiskCacher(DISK_CACHE_KEY, lifeCycle, 'sessionStorage');
 })();
 
 
