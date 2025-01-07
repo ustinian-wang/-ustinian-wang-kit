@@ -12,9 +12,9 @@
         "release:patch": "standard-version --release-as patch",
         "release:minor": "standard-version --release-as minor",
         "release:major": "standard-version --release-as major",
-        "publish:patch": "npm run release:patch && git push --follow-tags origin main && npm publish",
-        "publish:minor": "npm run release:minor && git push --follow-tags origin main && npm publish",
-        "publish:major": "npm run release:major && git push --follow-tags origin main && npm publish"
+        "pub:patch": "npm run release:patch && git push --follow-tags origin main && npm publish",
+        "pub:minor": "npm run release:minor && git push --follow-tags origin main && npm publish",
+        "pub:major": "npm run release:major && git push --follow-tags origin main && npm publish"
     },
     "keywords": [
         "kit",
