@@ -1,4 +1,5 @@
-// 这里依赖宿主环境，所以需要使用 moment.js
+import moment from 'moment';
+
 const DEFAULT_FORMAT = "YYYY-MM-DD HH:mm:ss";
 /**
  * 字符串转换为 Moment 对象
@@ -10,7 +11,7 @@ const DEFAULT_FORMAT = "YYYY-MM-DD HH:mm:ss";
  * stringToMoment("2024-01-01", "YYYY-MM-DD")
  * stringToMoment("2024-01-01 12:00:00", "YYYY-MM-DD HH:mm:ss")
  */
-export default function stringToMoment(dateStr, format = DEFAULT_FORMAT) {
+export function stringToMoment(dateStr, format = DEFAULT_FORMAT) {
     return moment(dateStr, format);  // 使用自定义格式
 }
 
